@@ -1,7 +1,7 @@
 "use client";
+import { useEffect, useState, CSSProperties } from "react";
 import Image from "next/image";
 import Bell from "@/app/assets/Bell.png";
-import { CSSProperties, useState } from "react";
 import NotificationDemo from "./components/Notification";
 import swDev from "@/app/swDev";
 
@@ -9,12 +9,17 @@ export default function Home() {
   const [message, setMessage] = useState<string>("");
   const [notificationKey, setNotificationKey] = useState<number>(0);
 
+  useEffect(() => {
+    swDev();
+  }, []);
+
   const handleClick = () => {
     const newMessage = `This is notification #${notificationKey + 1}`;
     setMessage(newMessage);
     setNotificationKey(notificationKey + 1);
 
-    if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+    // Send a message to the service worker to show a notification
+    if ("serviceWorker" in navigator && navigator.serviceWorker.controller) {
       navigator.serviceWorker.controller.postMessage({
         type: "SHOW_NOTIFICATION",
         title: "New Notification",
@@ -69,5 +74,3 @@ export default function Home() {
     </main>
   );
 }
-
-swDev();
