@@ -1,4 +1,3 @@
-
 function urlBase64ToUint8Array(base64String) {
   const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
   const base64 = (base64String + padding).replace(/\-/g, "+").replace(/_/g, "/");
@@ -45,6 +44,16 @@ export default function swDev() {
             }
           } else {
             console.log("Service worker not active yet.");
+            // Wait for the service worker to become active and reload the page
+            setTimeout(() => {
+              window.location.reload();
+            }, 1000);
+            registration.addEventListener('statechange', (event) => {
+              if (event.target.state === 'activated') {
+                console.log("Service worker is now active. Reloading the page...");
+                window.location.reload();
+              }
+            });
           }
         })
         .catch((err) => {
