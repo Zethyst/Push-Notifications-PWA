@@ -1,0 +1,10 @@
+{
+    "name": "Notification Alert System",
+    "short_name": "Noti Alert",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#000000",
+    "description": "My Progressive Web App"
+  }
+  

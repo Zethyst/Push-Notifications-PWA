@@ -6,6 +6,8 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+  --gradient: linear-gradient(to bottom, #6434ce, #7e61ff, #2b1757);
+  --color: #6434ce;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -15,19 +17,53 @@
     --background-end-rgb: 0, 0, 0;
   }
 }
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
 
 body {
   color: rgb(var(--foreground-rgb));
+  background: -webkit-linear-gradient(
+      bottom,
+      #271d3b,
+      rgb(var(--background-end-rgb))
+    ),
+    -webkit-linear-gradient(
+      top,
+      rgb(var(--background-start-rgb)),
+      #271d3b
+    );
   background: linear-gradient(
       to bottom,
-      transparent,
+      #271d3b,
       rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+    ),
+    linear-gradient(
+      to top,
+      rgb(var(--background-start-rgb)),
+      #271d3b
+    );
 }
+
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+}
+
+.pulse span {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: inherit;
+  border-radius: inherit;
+  opacity: 0.8;
+  animation: pulseAnimate 4s ease-out infinite;
+  animation-delay: calc(1s * var(--i));
+}
+
+@keyframes pulseAnimate {
+  100% {
+    opacity: 0;
+    transform: scale(2);
   }
 }

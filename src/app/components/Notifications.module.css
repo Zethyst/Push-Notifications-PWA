@@ -1,0 +1,140 @@
+.notifications {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.noti {
+  /* position: relative; */
+  /* width: 100%; */
+  height: 0;
+  transition: height 300ms ease;
+  flex-shrink: 0;
+  opacity: 1;
+}
+.noti.out {
+  animation: notiOut 500ms ease forwards;
+}
+@keyframes notiOut {
+  to {
+    height: 0;
+  }
+}
+
+.noticard {
+  position: absolute;
+  z-index: 999;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  isolation: isolate;
+  width: 24rem;
+  background: #0000004d;
+  border-radius: 1rem;
+  overflow: hidden;
+  animation: notiCardIn 500ms ease;
+  backdrop-filter: blur(10px);
+}
+@media (max-width: 768px) {
+  .noticard {
+    background: #0000006b;
+    width: 24rem;
+    right: 10px;
+  }
+}
+/* @media (max-width: 488px) {
+  .noticard {
+    background: #0000006b;
+    width: 20rem;
+    right: 5px;
+  }
+} */
+@keyframes notiCardIn {
+  from {
+    transform: translateX(50%);
+    opacity: 0;
+  }
+}
+.noti.out .noticard {
+  animation: notiCardOut 500ms ease forwards;
+}
+@keyframes notiCardOut {
+  to {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+}
+.noticard:before {
+  position: absolute;
+  content: "";
+  inset: 0.0625rem;
+  border-radius: 0.9375rem;
+  background: transparents;
+  z-index: 2;
+}
+.noticard:after {
+  position: absolute;
+  content: "";
+  width: 0.25rem;
+  inset: 0.65rem auto 0.65rem 0.5rem;
+  border-radius: 0.125rem;
+  background: var(--gradient);
+  transition: transform 300ms ease;
+  z-index: 4;
+}
+
+.noticard:hover:after {
+  transform: translateX(0.15rem);
+}
+
+.notititle {
+  color: var(--color);
+  padding: 0.65rem 0.5rem 0.4rem 1.25rem;
+  font-weight: 500;
+  font-size: 1.1rem;
+  transition: transform 300ms ease;
+  z-index: 5;
+}
+.noti:hover .notititle {
+  transform: translateX(0.15rem);
+}
+.notidesc {
+  color: #99999d;
+  padding: 0 0.5rem 0.85rem 1.25rem;
+  transition: transform 300ms ease;
+  z-index: 5;
+}
+.noti:hover .notidesc {
+  transform: translateX(0.25rem);
+}
+
+.notiglow,
+.notiborderglow {
+  position: absolute;
+  width: 20rem;
+  height: 20rem;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(
+    circle closest-side at center,
+    rgba(255, 255, 255, 0.174),
+    transparent
+  );
+  opacity: 0;
+  transition: opacity 300ms ease;
+}
+.notiglow {
+  z-index: 99999;
+  filter: blur(3rem);
+}
+.notiborderglow {
+  z-index: 3;
+  filter: blur(0.5rem);
+}
+.noti:hover .notiglow,
+.noti:hover .notiborderglow {
+  opacity: 0.25;
+}
