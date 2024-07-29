@@ -22,7 +22,7 @@ this.addEventListener("fetch", (event) => {
   console.log(event.request.url);
   if (
     event.request.url ===
-    "http://localhost:3000/_next/static/chunks/app/page.js"
+    `${process.env.NEXT_PUBLIC_URL}/_next/static/chunks/app/page.js`
   ) {
     event.waitUntil(
       this.registration.showNotification("Hello", {
